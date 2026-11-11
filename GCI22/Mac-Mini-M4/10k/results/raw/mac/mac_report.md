@@ -34,14 +34,14 @@
 
 Welch's test was undefined for: `ane_mj`.
 
-| Metric    | Δ mean   | p-value                        | Cohen’s d | Effect | Sig. |
-| --------- | -------- | ------------------------------ | --------- | ------ | ---- |
-| `cpu_mj`  | +127.92% | 9.00008334e-818295 (log-space) | +47.009   | large  | ✅   |
-| `gpu_mj`  | +128.27% | 7.89156372e-609762 (log-space) | +21.744   | large  | ✅   |
-| `dram_mj` | +113.46% | 2.86035636e-563990 (log-space) | +29.664   | large  | ✅   |
-| `time_s`  | +124.12% | 1.25303084e-798986 (log-space) | +73.988   | large  | ✅   |
+| Metric    | Δ mean | p-value                        | Cohen’s d | Effect | Sig. |
+| --------- | ------ | ------------------------------ | --------- | ------ | ---- |
+| `cpu_mj`  | 56.1%  | 9.00008334e-818295 (log-space) | +47.009   | large  | ✅   |
+| `gpu_mj`  | 56.2%  | 7.89156372e-609762 (log-space) | +21.744   | large  | ✅   |
+| `dram_mj` | 53.2%  | 2.86035636e-563990 (log-space) | +29.664   | large  | ✅   |
+| `time_s`  | 55.4%  | 1.25303084e-798986 (log-space) | +73.988   | large  | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_without × 100. Positive → the smell consumes more energy.
+> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the code without smells consumes less energy.
 
 ### Verdict
 

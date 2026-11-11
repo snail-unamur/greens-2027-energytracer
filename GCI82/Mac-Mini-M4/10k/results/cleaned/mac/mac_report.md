@@ -35,12 +35,12 @@
 | Metric    | Δ mean  | p-value                      | Cohen’s d | Effect     | Sig. |
 | --------- | ------- | ---------------------------- | --------- | ---------- | ---- |
 | `cpu_mj`  | -0.20%  | 4.31918125e-218              | -0.083    | negligible | ✅   |
-| `gpu_mj`  | -0.10%  | 1.92942560e-52               | -0.040    | negligible | ✅   |
+| `gpu_mj`  | -0.07%  | 1.92942560e-52               | -0.040    | negligible | ✅   |
 | `ane_mj`  | -99.97% | 4.47506067e-6620 (log-space) | -0.476    | small      | ✅   |
-| `dram_mj` | -1.56%  | 8.48990261e-4299 (log-space) | -0.373    | small      | ✅   |
-| `time_s`  | -0.06%  | 2.62674392e-21               | -0.025    | negligible | ✅   |
+| `dram_mj` | -1.59%  | 8.48990261e-4299 (log-space) | -0.373    | small      | ✅   |
+| `time_s`  | 0%      | 2.62674392e-21               | -0.025    | negligible | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_without × 100. Positive → the smell consumes more energy.
+> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the code without smells consumes less energy.
 
 ### Verdict
 
