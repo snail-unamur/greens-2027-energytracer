@@ -1,5 +1,5 @@
 cff-version: 1.0.0
-title: "Replication package of 'EnergyTracer ????'"
+title: "Replication package of EnergyTracer
 version: 1.0.0
 license: "CC-BY-4.0"
 type: dataset
@@ -18,7 +18,7 @@ authors:
     given-names: "Xavier"
 
 abstract: >
-  This upload includes the energy measurements results collected using the EnergyTracer pipeline, supporting the paper **???**, submitted to the 11th International Workshop on Green and Sustainable Software (GREENS'27), co-located with ICSE 2027.
+  This upload includes the energy measurements results collected using the EnergyTracer pipeline, supporting the paper submitted to the 11th International Workshop on Green and Sustainable Software (GREENS'27), co-located with ICSE 2027.
 
 keywords:
   - green coding
