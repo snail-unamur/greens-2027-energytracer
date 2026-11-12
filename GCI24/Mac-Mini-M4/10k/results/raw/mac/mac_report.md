@@ -26,26 +26,23 @@
 | --------- | ----------------- | -------------------- |
 | `cpu_mj`  | 348.356 mJ        | 25.210 mJ            |
 | `gpu_mj`  | 5.445 mJ          | 0.373 mJ             |
-| `ane_mj`  | 0.000 mJ          | 0.000 mJ             |
 | `dram_mj` | 34.165 mJ         | 1.767 mJ             |
 | `time_s`  | 0.063 s           | 0.004 s              |
 
 ### Normality (Shapiro-Wilk)
 
-Normality rate: 20.0% (2 not rejected, 8 rejected out of 10 tested distributions).
+Normality rate: 0% (0 not rejected, 8 rejected out of 8 tested distributions)
 
-| Metric    | Group         | N      | W statistic | p-value  | Result       |
-| --------- | ------------- | ------ | ----------- | -------- | ------------ |
-| `cpu_mj`  | With smell    | 299999 | 0.9026      | 9.16e-49 | Rejected     |
-| `cpu_mj`  | Without smell | 290170 | 0.7029      | 2.67e-69 | Rejected     |
-| `gpu_mj`  | With smell    | 299999 | 0.9899      | 2.15e-18 | Rejected     |
-| `gpu_mj`  | Without smell | 290170 | 0.9012      | 5.23e-49 | Rejected     |
-| `ane_mj`  | With smell    | 300000 | 1.0000      | 1.0000   | Not rejected |
-| `ane_mj`  | Without smell | 300000 | 1.0000      | 1.0000   | Not rejected |
-| `dram_mj` | With smell    | 299999 | 0.8896      | 6.91e-51 | Rejected     |
-| `dram_mj` | Without smell | 290170 | 0.4937      | 2.03e-80 | Rejected     |
-| `time_s`  | With smell    | 299999 | 0.8941      | 3.55e-50 | Rejected     |
-| `time_s`  | Without smell | 290170 | 0.4762      | 3.69e-81 | Rejected     |
+| Metric    | Group         | N      | W statistic | p-value  | Result   |
+| --------- | ------------- | ------ | ----------- | -------- | -------- |
+| `cpu_mj`  | With smell    | 299999 | 0.9026      | 9.16e-49 | Rejected |
+| `cpu_mj`  | Without smell | 290170 | 0.7029      | 2.67e-69 | Rejected |
+| `gpu_mj`  | With smell    | 299999 | 0.9899      | 2.15e-18 | Rejected |
+| `gpu_mj`  | Without smell | 290170 | 0.9012      | 5.23e-49 | Rejected |
+| `dram_mj` | With smell    | 299999 | 0.8896      | 6.91e-51 | Rejected |
+| `dram_mj` | Without smell | 290170 | 0.4937      | 2.03e-80 | Rejected |
+| `time_s`  | With smell    | 299999 | 0.8941      | 3.55e-50 | Rejected |
+| `time_s`  | Without smell | 290170 | 0.4762      | 3.69e-81 | Rejected |
 
 > At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Welch's t-test / Cohen’s d results for that metric.
 
