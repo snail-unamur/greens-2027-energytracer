@@ -30,18 +30,35 @@
 | `dram_mj` | 34.165 mJ         | 1.767 mJ             |
 | `time_s`  | 0.063 s           | 0.004 s              |
 
+### Normality (Shapiro-Wilk)
+
+Normality rate: 20.0% (2 not rejected, 8 rejected out of 10 tested distributions).
+
+| Metric    | Group         | N      | W statistic | p-value  | Result       |
+| --------- | ------------- | ------ | ----------- | -------- | ------------ |
+| `cpu_mj`  | With smell    | 299999 | 0.9026      | 9.16e-49 | Rejected     |
+| `cpu_mj`  | Without smell | 290170 | 0.7029      | 2.67e-69 | Rejected     |
+| `gpu_mj`  | With smell    | 299999 | 0.9899      | 2.15e-18 | Rejected     |
+| `gpu_mj`  | Without smell | 290170 | 0.9012      | 5.23e-49 | Rejected     |
+| `ane_mj`  | With smell    | 300000 | 1.0000      | 1.0000   | Not rejected |
+| `ane_mj`  | Without smell | 300000 | 1.0000      | 1.0000   | Not rejected |
+| `dram_mj` | With smell    | 299999 | 0.8896      | 6.91e-51 | Rejected     |
+| `dram_mj` | Without smell | 290170 | 0.4937      | 2.03e-80 | Rejected     |
+| `time_s`  | With smell    | 299999 | 0.8941      | 3.55e-50 | Rejected     |
+| `time_s`  | Without smell | 290170 | 0.4762      | 3.69e-81 | Rejected     |
+
+> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Welch's t-test / Cohen’s d results for that metric.
+
 ### Statistical Analysis
 
-Welch's test was undefined for: `ane_mj`.
+| Metric    | Δ mean  | p-value  | Cohen’s d | Effect | Sig. |
+| --------- | ------- | -------- | --------- | ------ | ---- |
+| `cpu_mj`  | +92.76% | 0.00e+00 | +21.419   | large  | ✅   |
+| `gpu_mj`  | +93.14% | 0.00e+00 | +14.506   | large  | ✅   |
+| `dram_mj` | +94.83% | 0.00e+00 | +22.059   | large  | ✅   |
+| `time_s`  | +93.04% | 0.00e+00 | +21.578   | large  | ✅   |
 
-| Metric    | Δ mean | p-value                        | Cohen’s d | Effect | Sig. |
-| --------- | ------ | ------------------------------ | --------- | ------ | ---- |
-| `cpu_mj`  | 92.8%  | 8.00195190e-361096 (log-space) | +21.419   | large  | ✅   |
-| `gpu_mj`  | 93.1%  | 4.96421357e-307828 (log-space) | +14.506   | large  | ✅   |
-| `dram_mj` | 94.8%  | 7.64171091e-360928 (log-space) | +22.059   | large  | ✅   |
-| `time_s`  | 93.0%  | 1.78402264e-360171 (log-space) | +21.578   | large  | ✅   |
-
-> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the code without smells consumes less energy.
+> Δ mean = (mean_with − mean_without) / mean_without × 100. Positive → the smell consumes more energy.
 
 ### Verdict
 

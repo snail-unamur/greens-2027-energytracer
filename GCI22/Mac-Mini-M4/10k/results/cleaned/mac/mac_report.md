@@ -6,7 +6,7 @@
 
 - **hostname**: `mac-mini-server`
 - **model**: `Mac16,10`
-- **os**: `Darwin 25.4.0`
+- **os**: `Darwin 25.3.0`
 - **machine**: `arm64`
 - **chip**: `Apple M4`
 
@@ -26,22 +26,36 @@
 | --------- | ----------------- | -------------------- |
 | `cpu_mj`  | 53.806 mJ         | 23.609 mJ            |
 | `gpu_mj`  | 0.272 mJ          | 0.119 mJ             |
-| `ane_mj`  | 0.000 mJ          | 0.000 mJ             |
 | `dram_mj` | 0.649 mJ          | 0.304 mJ             |
 | `time_s`  | 0.009 s           | 0.004 s              |
 
+### Normality (Shapiro-Wilk)
+
+Normality rate: 0% (0 not rejected, 8 rejected out of 8 tested distributions).
+
+| Metric    | Group         | N      | W statistic | p-value  | Result   |
+| --------- | ------------- | ------ | ----------- | -------- | -------- |
+| `cpu_mj`  | With smell    | 294566 | 0.9773      | 1.57e-27 | Rejected |
+| `cpu_mj`  | Without smell | 297168 | 0.8825      | 5.71e-52 | Rejected |
+| `gpu_mj`  | With smell    | 294578 | 0.9848      | 9.11e-23 | Rejected |
+| `gpu_mj`  | Without smell | 297176 | 0.9335      | 1.34e-42 | Rejected |
+| `dram_mj` | With smell    | 294569 | 0.9928      | 3.05e-15 | Rejected |
+| `dram_mj` | Without smell | 287383 | 0.9905      | 8.46e-18 | Rejected |
+| `time_s`  | With smell    | 294566 | 0.9863      | 1.23e-21 | Rejected |
+| `time_s`  | Without smell | 293831 | 0.9976      | 3.47e-07 | Rejected |
+
+> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Welch's t-test / Cohen’s d results for that metric.
+
 ### Statistical Analysis
 
-Welch's test was undefined for: `ane_mj`.
+| Metric    | Δ mean  | p-value  | Cohen’s d | Effect | Sig. |
+| --------- | ------- | -------- | --------- | ------ | ---- |
+| `cpu_mj`  | +56.12% | 0.00e+00 | +48.875   | large  | ✅   |
+| `gpu_mj`  | +56.20% | 0.00e+00 | +21.811   | large  | ✅   |
+| `dram_mj` | +53.16% | 0.00e+00 | +30.158   | large  | ✅   |
+| `time_s`  | +55.38% | 0.00e+00 | +80.983   | large  | ✅   |
 
-| Metric    | Δ mean | p-value                        | Cohen’s d | Effect | Sig. |
-| --------- | ------ | ------------------------------ | --------- | ------ | ---- |
-| `cpu_mj`  | 56.1%  | 1.29589017e-813690 (log-space) | +48.875   | large  | ✅   |
-| `gpu_mj`  | 56.2%  | 8.13594550e-602727 (log-space) | +21.811   | large  | ✅   |
-| `dram_mj` | 53.2%  | 4.90872830e-559781 (log-space) | +30.158   | large  | ✅   |
-| `time_s`  | 55.4%  | 4.10889935e-802019 (log-space) | +80.983   | large  | ✅   |
-
-> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the code without smells consumes less energy.
+> Δ mean = (mean_with − mean_without) / mean_without × 100. Positive → the smell consumes more energy.
 
 ### Verdict
 
