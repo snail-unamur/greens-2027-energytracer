@@ -1,10 +1,10 @@
-# Replication package of "???"
+# Replication package of EnergyTracer
 
-This upload includes the energy measurements results collected using the EnergyTracer pipeline, supporting the paper **???**, submitted to the 11th International Workshop on Green and Sustainable Software (GREENS'27), co-located with ICSE 2027.
+This upload includes the energy measurement results collected using the EnergyTracer pipeline, supporting the paper submitted to the 11th International Workshop on Green and Sustainable Software (GREENS'27), co-located with ICSE 2027.
 
 ## Data directory structure
 
-EnergyTracer stores the two code variants at the dataset root. Results are grouped by machine (`Mac-Mini-M4`), workload (`10k`), and profiler (`mac`, for the _zeus-apple-silicon_ profiler).
+For each GCI rule, EnergyTracer stores the two code variants at the root of the corresponding directory (`GCIxx/`). Results are grouped by machine (`Mac-Mini-M4`), workload (`10k`), and profiler (`mac`, for the _zeus-apple-silicon_ profiler).
 
 ```text
 GCIxx/
@@ -39,7 +39,6 @@ GCIxx/
                     └── without_smell.csv
 ```
 
-The `mac` directory directly under `10k` contains the results of the individual measurement runs made with the _zeus-apple-silicon_ profiler. Each `measure-<N>` subdirectory represents one run and contains separate raw and cleaned CSV data and plots for the two code variants.
-Within each run, `raw` contains the original measurements and `cleaned` contains the processed measurements. The CSV files record measurements by iteration for each code variant; the plots visualize comparisons and metric distributions.
+The `mac` directory directly under `10k` contains the results of the individual measurement runs made with the _zeus-apple-silicon_ profiler (see, for example, [GCI24](/GCI24/Mac-Mini-M4/10k/mac)). Each `measure-<N>` subdirectory represents one run and contains separate raw and cleaned CSV data and plots for the two code variants. Within each run, `raw` contains the original measurements and `cleaned` contains the processed measurements. The CSV files record measurements by iteration for each code variant; the plots visualize comparisons and metric distributions.
 
-The `results` directory contains data combined across measurement runs, separated by variant, along with a Markdown report for each profiler and data state.
+The `results` directory contains data combined across measurement runs, separated by variant, along with a Markdown report for each profiler and data state (see, for example, [GCI24 cleaned](/GCI24/Mac-Mini-M4/10k/results/cleaned/mac/mac_report.md) and [GCI24 raw](/GCI24/Mac-Mini-M4/10k/results/raw/mac/mac_report.md)).
