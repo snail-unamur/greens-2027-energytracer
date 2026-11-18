@@ -4,7 +4,7 @@ This upload includes the energy measurement results collected using the EnergyTr
 
 ## Data directory structure
 
-For each GCI rule, EnergyTracer stores the two code variants at the root of the corresponding directory (`GCIxx/`). Results are grouped by machine (`Mac-Mini-M4` or `EC2`), workload (`10k`), and profiler (`mac`, for the _zeus-apple-silicon_ profiler and `carbon` for the _CodeCarbon_ profiler). In the case of `EC2` representing an AWS service allowing to use virtual machine, three instances were used: `c8a.large`, `m7a.large` and `r8a.large` (see `<AWS-instance>`).
+Each GCI directory contains the two code variants and the measurements collected for that rule. The Mac Mini M4 data is available for each GCI directory. EC2 measurements are available only for GCI24.
 
 ```text
 GCIxx/
@@ -29,46 +29,51 @@ GCIxx/
 │       └── results/
 │           ├── raw/
 │           │   └── mac/
+│           │       ├── distributions/
 │           │       ├── mac_report.md
 │           │       ├── with_smell.csv
 │           │       └── without_smell.csv
 │           └── cleaned/
 │               └── mac/
+│                   ├── distributions/
 │                   ├── mac_report.md
 │                   ├── with_smell.csv
 │                   └── without_smell.csv
-└── EC2
+```
+
+EC2 measurements are stored only under `GCI24/`, grouped by AWS instance type:
+
+```text
+GCI24/
+└── EC2/
     └── 10k/
-        └── <AWS-instance>/output
-            └── carbon
-                ├── measure-<N>/
-                │   ├── raw/
-                │   │   ├── csv/
-                │   │   │   ├── history_with_smell.csv
-                │   │   │   └── history_without_smell.csv
-                │   │   └── plots/
-                │   │       ├── comparisons/
-                │   │       ├── moustaches/
-                │   │       ├── time/
-                │   │       └── violins/
-                │   └── cleaned/
-                │       ├── csv/
-                │       └── plots/
+        └── <AWS-instance>/
+            └── output/
+                ├── carbon/
+                │   └── measure-<N>/
+                │       ├── raw/
+                │       │   ├── csv/
+                │       │   └── plots/
+                │       └── cleaned/
+                │           ├── csv/
+                │           └── plots/
                 └── results/
                     ├── raw/
-                    │   └── mac/
-                    │       ├── mac_report.md
+                    │   └── carbon/
+                    │       ├── distributions/
+                    │       ├── carbon_report.md
                     │       ├── with_smell.csv
                     │       └── without_smell.csv
                     └── cleaned/
-                        └── mac/
-                            ├── mac_report.md
+                        └── carbon/
+                            ├── distributions/
+                            ├── carbon_report.md
                             ├── with_smell.csv
                             └── without_smell.csv
 ```
 
-The `mac` directory directly under `10k` contains the results of the individual measurement runs made with the _zeus-apple-silicon_ profiler (see, for example, [GCI24/Mac-Mini-M4](/GCI24/Mac-Mini-M4/10k/mac)). The `carbon` directory under `<AWS-instance>/output` contains the results of the individual measurement runs made with the _CodeCarbon_ profiler (see, for example, [GCI24/EC2/10k/c8a.large](/GCI24/EC2/10k/c8a.large/output/carbon/)).
+The `mac` directory contains individual runs made with the _zeus-apple-silicon_ profiler (see [GCI24 Mac measurements](GCI24/Mac-Mini-M4/10k/mac/)). For EC2, `carbon` contains individual runs made with the _CodeCarbon_ profiler. The available EC2 instance types in GCI24 are `c8a.large`, `m7a.large`, and `r8a.large` (see [GCI24 EC2 measurements](GCI24/EC2/10k/)).
 
 Each `measure-<N>` subdirectory represents one run and contains separate raw and cleaned CSV data and plots for the two code variants. Within each run, `raw` contains the original measurements and `cleaned` contains the processed measurements. The CSV files record measurements by iteration for each code variant; the plots visualize comparisons and metric distributions.
 
-The `results` directory contains data combined across measurement runs, separated by variant, along with a Markdown report for each profiler and data state (see, for example, [GCI24 cleaned](/GCI24/Mac-Mini-M4/10k/results/cleaned/mac/mac_report.md) and [GCI24 raw](/GCI24/Mac-Mini-M4/10k/results/raw/mac/mac_report.md)).
+Each `results` directory contains data combined across measurement runs, separated by variant, along with a Markdown report and distribution plots for each profiler and data state. For example, see the [GCI24 Mac cleaned report](GCI24/Mac-Mini-M4/10k/results/cleaned/mac/mac_report.md), [GCI24 Mac raw report](GCI24/Mac-Mini-M4/10k/results/raw/mac/mac_report.md), or [GCI24 EC2 cleaned report](GCI24/EC2/10k/c8a.large/output/results/cleaned/carbon/carbon_report.md).
