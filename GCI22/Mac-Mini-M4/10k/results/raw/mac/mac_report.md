@@ -55,7 +55,7 @@ Normality rate: 0% (0 not rejected, 8 rejected out of 8 tested distributions).
 | `dram_mj` | +53.15% | 0.00e+00 | +29.664   | large  | ✅   |
 | `time_s`  | +55.38% | 0.00e+00 | +73.988   | large  | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_without × 100. Positive → the smell consumes more energy.
+> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy.
 
 ### Verdict
 
