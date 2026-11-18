@@ -26,12 +26,13 @@
 | --------- | ----------------- | -------------------- |
 | `cpu_mj`  | 125.316 mJ        | 125.563 mJ           |
 | `gpu_mj`  | 1.372 mJ          | 1.373 mJ             |
+| `ane_mj`  | 0.000 mJ          | 0.062 mJ             |
 | `dram_mj` | 2.009 mJ          | 2.041 mJ             |
 | `time_s`  | 0.019 s           | 0.019 s              |
 
 ### Normality (Shapiro-Wilk)
 
-Normality rate: 0% (0 not rejected, 8 rejected out of 8 tested distributions)
+Normality rate: 0.0% (0 not rejected, 10 rejected out of 10 tested distributions).
 
 | Metric    | Group         | N      | W statistic | p-value  | Result   |
 | --------- | ------------- | ------ | ----------- | -------- | -------- |
@@ -39,30 +40,35 @@ Normality rate: 0% (0 not rejected, 8 rejected out of 8 tested distributions)
 | `cpu_mj`  | Without smell | 285687 | 0.9151      | 1.71e-46 | Rejected |
 | `gpu_mj`  | With smell    | 285956 | 0.9126      | 5.60e-47 | Rejected |
 | `gpu_mj`  | Without smell | 285824 | 0.9116      | 3.76e-47 | Rejected |
+| `ane_mj`  | With smell    | 284091 | 0.1720      | 1.96e-91 | Rejected |
+| `ane_mj`  | Without smell | 284032 | 0.3552      | 9.57e-86 | Rejected |
 | `dram_mj` | With smell    | 288322 | 0.8715      | 1.62e-53 | Rejected |
 | `dram_mj` | Without smell | 291548 | 0.7963      | 6.18e-62 | Rejected |
 | `time_s`  | With smell    | 285887 | 0.9149      | 1.53e-46 | Rejected |
 | `time_s`  | Without smell | 285841 | 0.9096      | 1.58e-47 | Rejected |
 
-> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Welch's t-test / Cohen’s d results for that metric.
+> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Mann-Whitney U / Vargha-Delaney A results for that metric.
 
 ### Statistical Analysis
 
-| Metric    | Δ mean      | p-value   | Cohen’s d | Effect     | Sig. |
-| --------- | ----------- | --------- | --------- | ---------- | ---- |
-| `cpu_mj`  | -0.20%      | 4.32e-218 | -0.083    | negligible | ✅   |
-| `gpu_mj`  | -0.10%      | 1.93e-52  | -0.040    | negligible | ✅   |
-| `ane_mj`  | -325834.72% | 0.00e+00  | -0.476    | small      | ✅   |
-| `dram_mj` | -1.58%      | 0.00e+00  | -0.373    | small      | ✅   |
-| `time_s`  | -0.06%      | 2.63e-21  | -0.025    | negligible | ✅   |
+| Metric    | Δ mean      | p-value (Mann-Whitney U) | Vargha-Delaney A | Effect | Sig. |
+| --------- | ----------- | ------------------------ | ---------------- | ------ | ---- |
+| `cpu_mj`  | -0.20%      | 1.57e-301                | 0.472            | small  | ✅   |
+| `gpu_mj`  | -0.10%      | 1.47e-64                 | 0.487            | small  | ✅   |
+| `ane_mj`  | -325834.72% | 0.00e+00                 | 0.430            | small  | ✅   |
+| `dram_mj` | -1.58%      | 0.00e+00                 | 0.444            | small  | ✅   |
+| `time_s`  | -0.06%      | 1.24e-29                 | 0.491            | small  | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy.
+> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy. A = P(with-smell value > without-smell value) + 0.5 × P(tie).
 
 ### Verdict
 
 Removing the code smell leads to measurable energy differences:
 
-- **`ane_mj`**: 325834.7% higher energy (Cohen’s d = -0.476, small)
-- **`dram_mj`**: 1.6% higher energy (Cohen’s d = -0.373, small)
+- **`cpu_mj`**: 0.2% higher energy (Vargha-Delaney A = 0.472, small)
+- **`gpu_mj`**: 0.1% higher energy (Vargha-Delaney A = 0.487, small)
+- **`ane_mj`**: 325834.7% higher energy (Vargha-Delaney A = 0.430, small)
+- **`dram_mj`**: 1.6% higher energy (Vargha-Delaney A = 0.444, small)
+- **`time_s`**: 0.1% higher time (Vargha-Delaney A = 0.491, small)
 
 > Verdict percentages describe the change relative to the with-smell mean.
