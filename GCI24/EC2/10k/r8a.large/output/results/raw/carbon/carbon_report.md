@@ -47,26 +47,26 @@ Normality rate: 20.0% (2 not rejected, 8 rejected out of 10 tested distributions
 | `time_s`  | With smell    | 299865 | 0.9125      | 5.43e-47 | Rejected     |
 | `time_s`  | Without smell | 290167 | 0.3895      | 1.59e-84 | Rejected     |
 
-> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Welch's t-test / Cohen’s d results for that metric.
+> At α = 0.05, 'Not rejected' means Shapiro-Wilk found no evidence against normality (H₀: the sample is normally distributed); it does not prove the data are normal. These results do not change which test is applied below — use them to judge how much to trust the Mann-Whitney U / Vargha-Delaney A results for that metric.
 
 ### Statistical Analysis
 
-| Metric    | Δ mean  | p-value  | Cohen’s d | Effect | Sig. |
-| --------- | ------- | -------- | --------- | ------ | ---- |
-| `cpu_mj`  | +93.40% | 0.00e+00 | +15.946   | large  | ✅   |
-| `co2_eq`  | +93.32% | 0.00e+00 | +15.920   | large  | ✅   |
-| `dram_mj` | +93.31% | 0.00e+00 | +15.908   | large  | ✅   |
-| `time_s`  | +93.42% | 0.00e+00 | +15.960   | large  | ✅   |
+| Metric    | Δ mean  | p-value (Mann-Whitney U) | Vargha-Delaney A | Effect | Sig. |
+| --------- | ------- | ------------------------ | ---------------- | ------ | ---- |
+| `cpu_mj`  | +93.40% | 0.00e+00                 | 1.000            | large  | ✅   |
+| `co2_eq`  | +93.32% | 0.00e+00                 | 1.000            | large  | ✅   |
+| `dram_mj` | +93.31% | 0.00e+00                 | 1.000            | large  | ✅   |
+| `time_s`  | +93.42% | 0.00e+00                 | 1.000            | large  | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy.
+> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy. A = P(with-smell value > without-smell value) + 0.5 × P(tie).
 
 ### Verdict
 
 Removing the code smell leads to measurable energy differences:
 
-- **`cpu_mj`**: 93.4% lower energy (Cohen’s d = +15.946, large)
-- **`co2_eq`**: 93.3% lower energy (Cohen’s d = +15.920, large)
-- **`dram_mj`**: 93.3% lower energy (Cohen’s d = +15.908, large)
-- **`time_s`**: 93.4% lower time (Cohen’s d = +15.960, large)
+- **`cpu_mj`**: 93.4% lower energy (Vargha-Delaney A = 1.000, large)
+- **`co2_eq`**: 93.3% lower energy (Vargha-Delaney A = 1.000, large)
+- **`dram_mj`**: 93.3% lower energy (Vargha-Delaney A = 1.000, large)
+- **`time_s`**: 93.4% lower time (Vargha-Delaney A = 1.000, large)
 
 > Verdict percentages describe the change relative to the with-smell mean.
