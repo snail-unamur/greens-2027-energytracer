@@ -12,23 +12,25 @@
 
 ### Global Consumption
 
-| Metric             | With smell | Without smell |
-| ------------------ | ---------- | ------------- |
-| **Execution Time** | 18.30 ms   | 18.31 ms      |
-| **Average Power**  | 6.835 W    | 6.856 W       |
-| **Total Energy**   | 36748.70 J | 36876.79 J    |
+| Metric                    | With smell | Without smell |
+| ------------------------- | ---------- | ------------- |
+| **Median Execution Time** | 18.75 ms   | 18.78 ms      |
+| **Average Power**         | 6.835 W    | 6.856 W       |
+| **Total Energy**          | 36748.70 J | 36876.79 J    |
 
 > The total energy is the sum of measurements across all iterations, converted to joules (J). If you ran the ./run_experiment.sh script, this reflects the cumulative energy of all 30 iterations of the process.
 
-### Mean Values
+### Median Values and IQR
 
-| Metric    | Mean (with smell) | Mean (without smell) |
-| --------- | ----------------- | -------------------- |
-| `cpu_mj`  | 125.316 mJ        | 125.563 mJ           |
-| `gpu_mj`  | 1.372 mJ          | 1.373 mJ             |
-| `ane_mj`  | 0.000 mJ          | 0.062 mJ             |
-| `dram_mj` | 2.009 mJ          | 2.041 mJ             |
-| `time_s`  | 0.019 s           | 0.019 s              |
+| Metric    | Median (with smell) | IQR (with smell) | Median (without smell) | IQR (without smell) |
+| --------- | ------------------- | ---------------- | ---------------------- | ------------------- |
+| `cpu_mj`  | 124.959 mJ          | 2.878 mJ         | 125.113 mJ             | 3.078 mJ            |
+| `gpu_mj`  | 1.368 mJ            | 0.032 mJ         | 1.369 mJ               | 0.031 mJ            |
+| `ane_mj`  | 0.000 mJ            | 0.000 mJ         | 0.000 mJ               | 0.000 mJ            |
+| `dram_mj` | 1.999 mJ            | 0.048 mJ         | 2.005 mJ               | 0.079 mJ            |
+| `time_s`  | 0.019 s             | 0.000 s          | 0.019 s                | 0.000 s             |
+
+> IQR = 75th percentile − 25th percentile (linear interpolation).
 
 ### Normality (Shapiro-Wilk)
 
@@ -51,24 +53,24 @@ Normality rate: 0.0% (0 not rejected, 10 rejected out of 10 tested distributions
 
 ### Statistical Analysis
 
-| Metric    | Δ mean      | p-value (Mann-Whitney U) | Vargha-Delaney A | Effect | Sig. |
-| --------- | ----------- | ------------------------ | ---------------- | ------ | ---- |
-| `cpu_mj`  | -0.20%      | 1.57e-301                | 0.472            | small  | ✅   |
-| `gpu_mj`  | -0.10%      | 1.47e-64                 | 0.487            | small  | ✅   |
-| `ane_mj`  | -325834.72% | 0.00e+00                 | 0.430            | small  | ✅   |
-| `dram_mj` | -1.58%      | 0.00e+00                 | 0.444            | small  | ✅   |
-| `time_s`  | -0.06%      | 1.24e-29                 | 0.491            | small  | ✅   |
+| Metric    | Δ median | p-value (Mann-Whitney U) | Vargha-Delaney A | Effect | Sig. |
+| --------- | -------- | ------------------------ | ---------------- | ------ | ---- |
+| `cpu_mj`  | -0.12%   | 1.57e-301                | 0.472            | small  | ✅   |
+| `gpu_mj`  | -0.07%   | 1.47e-64                 | 0.487            | small  | ✅   |
+| `ane_mj`  | N/A      | 0.00e+00                 | 0.430            | small  | ✅   |
+| `dram_mj` | -0.30%   | 0.00e+00                 | 0.444            | small  | ✅   |
+| `time_s`  | -0.14%   | 1.24e-29                 | 0.491            | small  | ✅   |
 
-> Δ mean = (mean_with − mean_without) / mean_with × 100. Positive → the smell consumes more energy. A = P(with-smell value > without-smell value) + 0.5 × P(tie).
+> Δ median = (median_with − median_without) / median_with × 100. For a positive with-smell median, positive → it is higher. A = P(with-smell value > without-smell value) + 0.5 × P(tie).
 
 ### Verdict
 
 Removing the code smell leads to measurable energy differences:
 
-- **`cpu_mj`**: 0.2% higher energy (Vargha-Delaney A = 0.472, small)
-- **`gpu_mj`**: 0.1% higher energy (Vargha-Delaney A = 0.487, small)
-- **`ane_mj`**: 325834.7% higher energy (Vargha-Delaney A = 0.430, small)
-- **`dram_mj`**: 1.6% higher energy (Vargha-Delaney A = 0.444, small)
-- **`time_s`**: 0.1% higher time (Vargha-Delaney A = 0.491, small)
+- **`cpu_mj`**: 0.1% higher median energy (Vargha-Delaney A = 0.472, small)
+- **`gpu_mj`**: 0.1% higher median energy (Vargha-Delaney A = 0.487, small)
+- **`ane_mj`**: no change in median energy (Vargha-Delaney A = 0.430, small)
+- **`dram_mj`**: 0.3% higher median energy (Vargha-Delaney A = 0.444, small)
+- **`time_s`**: 0.1% higher median time (Vargha-Delaney A = 0.491, small)
 
-> Verdict percentages describe the change relative to the with-smell mean.
+> Verdict percentages describe the change relative to the with-smell median.
