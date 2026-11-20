@@ -10,41 +10,44 @@ Each GCI directory contains the two code variants and the measurements collected
 GCIxx/
 ├── GCIxx_code_with_smell.py
 ├── GCIxx_code_without_smell.py
-├── Mac-Mini-M4/
-│   └── 10k/
-│       ├── mac/
-│       │   └── measure-<N>/
-│       │       ├── raw/
-│       │       │   ├── csv/
-│       │       │   │   ├── history_with_smell.csv
-│       │       │   │   └── history_without_smell.csv
-│       │       │   └── plots/
-│       │       │       ├── comparisons/
-│       │       │       ├── moustaches/
-│       │       │       ├── time/
-│       │       │       └── violins/
-│       │       └── cleaned/
-│       │           ├── csv/
-│       │           └── plots/
-│       └── results/
-│           ├── raw/
-│           │   └── mac/
-│           │       ├── distributions/
-│           │       ├── mac_report.md
-│           │       ├── with_smell.csv
-│           │       └── without_smell.csv
-│           └── cleaned/
-│               └── mac/
-│                   ├── distributions/
-│                   ├── mac_report.md
-│                   ├── with_smell.csv
-│                   └── without_smell.csv
+└── Mac-Mini-M4/
+    └── 10k/
+        ├── mac/
+        │   └── measure-<N>/
+        │       ├── raw/
+        │       │   ├── csv/
+        │       │   │   ├── history_with_smell.csv
+        │       │   │   └── history_without_smell.csv
+        │       │   └── plots/
+        │       │       ├── comparisons/
+        │       │       ├── moustaches/
+        │       │       ├── time/
+        │       │       └── violins/
+        │       └── cleaned/
+        │           ├── csv/
+        │           └── plots/
+        └── results/
+            ├── raw/
+            │   └── mac/
+            │       ├── distributions/
+            │       ├── mac_report.md
+            │       ├── with_smell.csv
+            │       └── without_smell.csv
+            └── cleaned/
+                └── mac/
+                    ├── distributions/
+                    ├── mac_report.md
+                    ├── with_smell.csv
+                    └── without_smell.csv
 ```
 
-EC2 measurements are stored only under `GCI24/`, grouped by AWS instance type:
+EC2 measurements are stored under `GCI24/`, grouped by AWS instance type:
 
 ```text
 GCI24/
+├── GCIxx_code_with_smell.py
+├── GCIxx_code_without_smell.py
+├── Mac-Mini-M4/
 └── EC2/
     └── 10k/
         └── <AWS-instance>/
